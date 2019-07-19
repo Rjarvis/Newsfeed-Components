@@ -112,8 +112,55 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
 
 */
+
+function elementCreator(element, parent){
+    let parentDiv = document || parent ;
+    return parentDiv.createElement(element);
+}
+
 class ArticleComponent{
-  constructor(elem){
-    
+  constructor(data){
+    this.isOpen = false;
+    // const compTitle = panel.querySelector('h3');
+    // compTitle.textContent = title;
+    // this.panelButton
+    console.log(data);
+    this.div = elementCreator("div");
+    this.div.classList.add("article");
+    const divTitle = elementCreator("h2",this.div);
+    divTitle.textContent = data.title;
+    this.div.appendChild(divTitle);
+    const divDate = elementCreator("p",this.div);
+    divDate.textContent = data.date;
+    this.div.appendChild(divDate);
+    const par1 = elementCreator("p",this.div);
+    par1.textContent = data.firstParagraph;
+    this.div.appendChild(par1);
+    const par2 = elementCreator("p",this.div);
+    par2.textContent = data.secondParagraph;
+    this.div.appendChild(par2);
+    const par3 = elementCreator("p",this.div);
+    par3.textContent = data.thirdParagraph;
+    this.div.appendChild(par3);
+    const divSpan = elementCreator("span",this.div);
+    divSpan.classList.add("expandButton");
+    this.div.addEventListener('click',() =>{
+      this.toggleSpan();
+    });
+    this.div.appendChild(divSpan);
+    return this.div;
+  }
+
+  toggleSpan(){
+      this.div.classList.toggle('article-open');
   }
 }
+
+
+const parentDiv = document.querySelector('.articles');
+console.log(parentDiv);
+let component = new ArticleComponent(data[0]);
+parentDiv.appendChild(component);
+console.log(component);
+
+
